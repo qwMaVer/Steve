@@ -8,9 +8,13 @@ buildscript {
         maven { url = 'https://maven.minecraftforge.net' }
     }
     dependencies {
-        classpath name: 'ForgeGradle-6.0.46' // важно: без .jar
+        classpath name: 'ForgeGradle-6.0.46'
+        classpath name: 'artifactural-3.0.20'
+        classpath name: 'srgutils-0.5.10'
+        classpath name: 'DiffPatch-2.0.12-all'
     }
 }
+
 
 // === Вручную активируем ForgeGradle ===
 apply plugin: 'net.minecraftforge.gradle'
