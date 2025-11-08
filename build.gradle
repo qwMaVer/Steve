@@ -1,24 +1,23 @@
-// ===== ForgeGradle и зависимости подключаются локально =====
+// === Подключаем ForgeGradle из локальной папки ===
 buildscript {
     repositories {
-        flatDir { dirs 'libs' } // ищет jar'ы в папке libs
+        flatDir {
+            dirs 'libs'
+        }
         mavenCentral()
+        maven { url = 'https://maven.minecraftforge.net' }
     }
     dependencies {
-        classpath files(
-            'libs/ForgeGradle-6.0.46.jar',
-            'libs/artifactural-3.0.20.jar',
-            'libs/srgutils-0.5.10.jar',
-            'libs/DiffPatch-2.0.12-all.jar'
-        )
+        classpath name: 'ForgeGradle-6.0.46' // важно: без .jar
     }
 }
 
-// ===== Подключаем плагины вручную =====
+// === Вручную активируем ForgeGradle ===
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'maven-publish'
+
 
 // ===== Основная информация о моде =====
 version = '1.0.0'
