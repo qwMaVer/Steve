@@ -47,7 +47,20 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    // 🧱 Основной Forge Maven
+    maven { url = 'https://maven.minecraftforge.net' }
+
+    // 💾 Центральные зеркала Maven
     mavenCentral()
+    maven { url = 'https://repo1.maven.org/maven2/' }
+    maven { url = 'https://jitpack.io' }
+
+    // 🧩 Альтернативный Forge Maven (GitHub Packages)
+    maven { url = 'https://maven.pkg.github.com/MinecraftForge/MinecraftForge' }
+
+    // ✅ (необязательно, но полезно)
+    // локальная папка libs на случай ручных зависимостей
+    flatDir { dirs 'libs' }
 }
 
 dependencies {
