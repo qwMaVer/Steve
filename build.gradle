@@ -1,3 +1,19 @@
+buildscript {
+    repositories {
+        flatDir { dirs 'libs' } // ищет jar'ы в папке libs
+        mavenCentral()
+    }
+    dependencies {
+        classpath files(
+            'libs/ForgeGradle-6.0.46.jar',
+            'libs/artifactural-3.0.20.jar',
+            'libs/srgutils-0.5.10.jar',
+            'libs/DiffPatch-2.0.12-all.jar'
+        )
+    }
+}
+
+
 plugins {
     id 'eclipse'
     id 'idea'
