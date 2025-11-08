@@ -1,3 +1,4 @@
+// ===== ForgeGradle и зависимости подключаются локально =====
 buildscript {
     repositories {
         flatDir { dirs 'libs' } // ищет jar'ы в папке libs
@@ -13,14 +14,13 @@ buildscript {
     }
 }
 
+// ===== Подключаем плагины вручную =====
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'maven-publish'
 
-plugins {
-    id 'eclipse'
-    id 'idea'
-    id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
-}
-
+// ===== Основная информация о моде =====
 version = '1.0.0'
 group = 'com.steve.ai'
 
@@ -28,8 +28,10 @@ base {
     archivesName = 'steve-ai-mod'
 }
 
+// ===== Настройки Java =====
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
+// ===== Конфигурация Forge =====
 minecraft {
     mappings channel: 'official', version: '1.20.1'
 
@@ -60,35 +62,35 @@ minecraft {
     }
 }
 
+// ===== Папки ресурсов =====
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
+// ===== Репозитории =====
 repositories {
-    // 🧱 Основной Forge Maven
+    // Основной Forge Maven (на случай если интернет появится)
     maven { url = 'https://maven.minecraftforge.net' }
 
-    // 💾 Центральные зеркала Maven
+    // Центральные зеркала Maven
     mavenCentral()
     maven { url = 'https://repo1.maven.org/maven2/' }
     maven { url = 'https://jitpack.io' }
 
-    // 🧩 Альтернативный Forge Maven (GitHub Packages)
+    // Альтернативный Forge Maven
     maven { url = 'https://maven.pkg.github.com/MinecraftForge/MinecraftForge' }
 
-    // ✅ (необязательно, но полезно)
-    // локальная папка libs на случай ручных зависимостей
+    // Локальная папка libs (на случай оффлайн работы)
     flatDir { dirs 'libs' }
 }
 
+// ===== Зависимости =====
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
-    
-    // HTTP client - Using Java 11+ built-in HttpClient (no external dependencies needed!)
-    // JSON parsing - Minecraft already includes Gson
-    
-    // Baritone API (will need to be added manually to libs folder)
+
+    // Baritone API (добавь вручную, если нужно)
     // implementation files('libs/baritone-api-1.20.1.jar')
 }
 
+// ===== Сборка jar =====
 tasks.named('jar', Jar).configure {
     manifest {
         attributes([
@@ -104,6 +106,7 @@ tasks.named('jar', Jar).configure {
     finalizedBy 'reobfJar'
 }
 
+// ===== Публикация (локальный репозиторий) =====
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -116,4 +119,3 @@ publishing {
         }
     }
 }
-
